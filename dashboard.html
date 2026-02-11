@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - MozCommerce</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <h1>Moz<span>Commerce</span></h1>
+            <p>Admin Panel</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-link active">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#users" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Usuários</span>
+                <span class="badge">1,234</span>
+            </a>
+            <a href="#sellers" class="nav-link">
+                <i class="fas fa-store"></i>
+                <span>Vendedores</span>
+                <span class="badge pending">15</span>
+            </a>
+            <a href="#products" class="nav-link">
+                <i class="fas fa-box"></i>
+                <span>Produtos</span>
+                <span class="badge pending">8</span>
+            </a>
+            <a href="#orders" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Pedidos</span>
+            </a>
+            <a href="#transactions" class="nav-link">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Transações</span>
+            </a>
+            <a href="#disputes" class="nav-link">
+                <i class="fas fa-balance-scale"></i>
+                <span>Disputas</span>
+                <span class="badge warning">3</span>
+            </a>
+            <a href="#reports" class="nav-link">
+                <i class="fas fa-flag"></i>
+                <span>Denúncias</span>
+                <span class="badge danger">5</span>
+            </a>
+            <a href="#analytics" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Análises</span>
+            </a>
+            <a href="#settings" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i>
+                Sair
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-topbar">
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar...">
+            </div>
+
+            <div class="topbar-actions">
+                <button class="icon-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">12</span>
+                </button>
+                <div class="admin-profile">
+                    <img src="https://via.placeholder.com/40" alt="Admin">
+                    <div>
+                        <strong>Admin</strong>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="admin-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>2,450,000 MZN</h3>
+                        <p>Receita Total</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 12.5%
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>8,542</h3>
+                        <p>Total de Pedidos</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 8.2%
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>1,234</h3>
+                        <p>Usuários Ativos</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 15.3%
+                        </span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>156</h3>
+                        <p>Vendedores Ativos</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 5.7%
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>Receita Mensal</h3>
+                        <select>
+                            <option>2026</option>
+                            <option>2025</option>
+                        </select>
+                    </div>
+                    <div class="chart-placeholder">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>Categorias Mais Vendidas</h3>
+                    </div>
+                    <div class="categories-list">
+                        <div class="category-item">
+                            <div class="category-info">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>Electrónica</span>
+                            </div>
+                            <div class="category-stats">
+                                <span class="percentage">35%</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 35%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-info">
+                                <i class="fas fa-tshirt"></i>
+                                <span>Moda</span>
+                            </div>
+                            <div class="category-stats">
+                                <span class="percentage">28%</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 28%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-info">
+                                <i class="fas fa-couch"></i>
+                                <span>Casa</span>
+                            </div>
+                            <div class="category-stats">
+                                <span class="percentage">22%</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 22%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-info">
+                                <i class="fas fa-spa"></i>
+                                <span>Beleza</span>
+                            </div>
+                            <div class="category-stats">
+                                <span class="percentage">15%</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 15%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tables Row -->
+            <div class="tables-row">
+                <!-- Recent Orders -->
+                <div class="table-card">
+                    <div class="card-header">
+                        <h3>Pedidos Recentes</h3>
+                        <a href="#orders" class="link-primary">Ver Todos</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Pedido</th>
+                                    <th>Cliente</th>
+                                    <th>Produto</th>
+                                    <th>Valor</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>#ORD-5432</strong></td>
+                                    <td>João Silva</td>
+                                    <td>Samsung Galaxy A54</td>
+                                    <td>12,500 MZN</td>
+                                    <td><span class="status-badge success">Pago</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#ORD-5431</strong></td>
+                                    <td>Maria Santos</td>
+                                    <td>Vestido Floral</td>
+                                    <td>2,800 MZN</td>
+                                    <td><span class="status-badge warning">Pendente</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#ORD-5430</strong></td>
+                                    <td>Carlos Matos</td>
+                                    <td>Laptop Dell</td>
+                                    <td>35,000 MZN</td>
+                                    <td><span class="status-badge info">Enviado</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#ORD-5429</strong></td>
+                                    <td>Ana Costa</td>
+                                    <td>Tênis Nike</td>
+                                    <td>4,200 MZN</td>
+                                    <td><span class="status-badge success">Entregue</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#ORD-5428</strong></td>
+                                    <td>Pedro Lima</td>
+                                    <td>Smart TV 43"</td>
+                                    <td>18,900 MZN</td>
+                                    <td><span class="status-badge danger">Cancelado</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pending Approvals -->
+                <div class="table-card">
+                    <div class="card-header">
+                        <h3>Aprovações Pendentes</h3>
+                        <span class="badge pending">15</span>
+                    </div>
+                    <div class="approvals-list">
+                        <div class="approval-item">
+                            <div class="approval-info">
+                                <i class="fas fa-store"></i>
+                                <div>
+                                    <strong>Novo Vendedor</strong>
+                                    <p>TechStore Maputo</p>
+                                </div>
+                            </div>
+                            <div class="approval-actions">
+                                <button class="btn-approve"><i class="fas fa-check"></i></button>
+                                <button class="btn-reject"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="approval-item">
+                            <div class="approval-info">
+                                <i class="fas fa-box"></i>
+                                <div>
+                                    <strong>Produto Novo</strong>
+                                    <p>iPhone 15 Pro Max</p>
+                                </div>
+                            </div>
+                            <div class="approval-actions">
+                                <button class="btn-approve"><i class="fas fa-check"></i></button>
+                                <button class="btn-reject"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="approval-item">
+                            <div class="approval-info">
+                                <i class="fas fa-flag"></i>
+                                <div>
+                                    <strong>Denúncia</strong>
+                                    <p>Produto falsificado</p>
+                                </div>
+                            </div>
+                            <div class="approval-actions">
+                                <button class="btn-view"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <div class="approval-item">
+                            <div class="approval-info">
+                                <i class="fas fa-balance-scale"></i>
+                                <div>
+                                    <strong>Disputa</strong>
+                                    <p>Pedido #ORD-5420</p>
+                                </div>
+                            </div>
+                            <div class="approval-actions">
+                                <button class="btn-view"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Methods Stats -->
+            <div class="payment-stats">
+                <h3>Métodos de Pagamento</h3>
+                <div class="payment-grid">
+                    <div class="payment-card">
+                        <div class="payment-header">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>M-Pesa</span>
+                        </div>
+                        <div class="payment-value">1,250,000 MZN</div>
+                        <div class="payment-percent">51%</div>
+                    </div>
+                    <div class="payment-card">
+                        <div class="payment-header">
+                            <i class="fas fa-wallet"></i>
+                            <span>E-Mola</span>
+                        </div>
+                        <div class="payment-value">750,000 MZN</div>
+                        <div class="payment-percent">31%</div>
+                    </div>
+                    <div class="payment-card">
+                        <div class="payment-header">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>M-Kesh</span>
+                        </div>
+                        <div class="payment-value">300,000 MZN</div>
+                        <div class="payment-percent">12%</div>
+                    </div>
+                    <div class="payment-card">
+                        <div class="payment-header">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Cartões</span>
+                        </div>
+                        <div class="payment-value">150,000 MZN</div>
+                        <div class="payment-percent">6%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
