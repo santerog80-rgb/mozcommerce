@@ -1,460 +1,56 @@
 <!DOCTYPE html>
-<html lang="pt-MZ">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MozCommerce - Maior Marketplace de Moçambique</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/responsive.css">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>My Application</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+            });
+        }
+    </script>
 </head>
 <body>
-    <!-- Barra de Topo -->
-    <div class="top-bar">
-        <div class="container">
-            <div class="top-bar-content">
-                <div class="top-left">
-                    <span><i class="fas fa-map-marker-alt"></i> Moçambique</span>
-                    <span><i class="fas fa-phone"></i> +258 84 123 4567</span>
-                </div>
-                <div class="top-right">
-                    <a href="#" id="vendaBtn"><i class="fas fa-store"></i> Vender no MozCommerce</a>
-                    <a href="#"><i class="fas fa-headset"></i> Suporte</a>
-                    <div class="language-selector">
-                        <i class="fas fa-globe"></i>
-                        <select>
-                            <option value="pt">Português</option>
-                            <option value="en">English</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Header Principal -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>Moz<span>Commerce</span></h1>
-                    <p class="tagline">O Mercado Digital de Moçambique</p>
-                </div>
-
-                <div class="search-bar">
-                    <input type="text" placeholder="Procurar produtos, serviços e vendedores..." id="searchInput">
-                    <button class="search-btn"><i class="fas fa-search"></i> Procurar</button>
-                </div>
-
-                <div class="header-actions">
-                    <button class="icon-btn" id="cartBtn">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="badge">0</span>
-                    </button>
-                    <button class="icon-btn" id="wishlistBtn">
-                        <i class="fas fa-heart"></i>
-                        <span class="badge">0</span>
-                    </button>
-                    <button class="btn-primary" id="loginBtn">
-                        <i class="fas fa-user"></i> Entrar
-                    </button>
-                </div>
-
-                <!-- Menu Mobile Toggle -->
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-
-            <!-- Navegação Principal -->
-            <nav class="main-nav">
-                <ul class="nav-list">
-                    <li class="nav-item dropdown">
-                        <a href="#"><i class="fas fa-th"></i> Todas Categorias</a>
-                        <div class="mega-menu">
-                            <div class="mega-menu-content">
-                                <div class="category-group">
-                                    <h4>Electrónica</h4>
-                                    <ul>
-                                        <li><a href="#">Telemóveis & Tablets</a></li>
-                                        <li><a href="#">Computadores & Laptops</a></li>
-                                        <li><a href="#">TVs & Audio</a></li>
-                                        <li><a href="#">Câmaras & Fotografia</a></li>
-                                        <li><a href="#">Acessórios</a></li>
-                                    </ul>
-                                </div>
-                                <div class="category-group">
-                                    <h4>Moda & Vestuário</h4>
-                                    <ul>
-                                        <li><a href="#">Roupa Masculina</a></li>
-                                        <li><a href="#">Roupa Feminina</a></li>
-                                        <li><a href="#">Roupa Infantil</a></li>
-                                        <li><a href="#">Sapatos & Calçados</a></li>
-                                        <li><a href="#">Acessórios & Jóias</a></li>
-                                    </ul>
-                                </div>
-                                <div class="category-group">
-                                    <h4>Casa & Decoração</h4>
-                                    <ul>
-                                        <li><a href="#">Mobiliário</a></li>
-                                        <li><a href="#">Cozinha & Jantar</a></li>
-                                        <li><a href="#">Decoração</a></li>
-                                        <li><a href="#">Iluminação</a></li>
-                                        <li><a href="#">Jardim & Exterior</a></li>
-                                    </ul>
-                                </div>
-                                <div class="category-group">
-                                    <h4>Serviços</h4>
-                                    <ul>
-                                        <li><a href="#">Transporte & Logística</a></li>
-                                        <li><a href="#">Construção & Reparos</a></li>
-                                        <li><a href="#">Educação & Cursos</a></li>
-                                        <li><a href="#">Eventos & Festas</a></li>
-                                        <li><a href="#">Limpeza & Manutenção</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item"><a href="#"><i class="fas fa-fire"></i> Promoções</a></li>
-                    <li class="nav-item"><a href="#"><i class="fas fa-star"></i> Mais Vendidos</a></li>
-                    <li class="nav-item"><a href="#"><i class="fas fa-gift"></i> Novidades</a></li>
-                    <li class="nav-item"><a href="#"><i class="fas fa-crown"></i> Premium</a></li>
-                    <li class="nav-item"><a href="#"><i class="fas fa-concierge-bell"></i> Serviços</a></li>
-                </ul>
-            </nav>
-        </div>
+    <header>
+        <h1>Welcome to My Application</h1>
+        <nav>
+            <ul>
+                <li><a href="#section1">Section 1</a></li>
+                <li><a href="#section2">Section 2</a></li>
+                <li><a href="#section3">Section 3</a></li>
+                <li><a href="#section4">Section 4</a></li>
+            </ul>
+        </nav>
     </header>
-
-    <!-- Banner Hero -->
-    <section class="hero-section">
-        <div class="hero-slider">
-            <div class="hero-slide active" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                <div class="container">
-                    <div class="hero-content">
-                        <span class="hero-tag">Bem-vindo ao Futuro</span>
-                        <h2>O Maior Marketplace<br>de Moçambique</h2>
-                        <p>Milhões de produtos, milhares de vendedores, uma única plataforma</p>
-                        <button class="btn-hero">Começar a Comprar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Categorias em Destaque -->
-    <section class="featured-categories">
-        <div class="container">
-            <h2 class="section-title">Explorar por Categoria</h2>
-            <div class="categories-grid">
-                <div class="category-card" data-category="electronics">
-                    <div class="category-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Electrónica</h3>
-                    <p>50,234 produtos</p>
-                </div>
-                <div class="category-card" data-category="fashion">
-                    <div class="category-icon">
-                        <i class="fas fa-tshirt"></i>
-                    </div>
-                    <h3>Moda</h3>
-                    <p>89,456 produtos</p>
-                </div>
-                <div class="category-card" data-category="home">
-                    <div class="category-icon">
-                        <i class="fas fa-couch"></i>
-                    </div>
-                    <h3>Casa</h3>
-                    <p>34,123 produtos</p>
-                </div>
-                <div class="category-card" data-category="beauty">
-                    <div class="category-icon">
-                        <i class="fas fa-spa"></i>
-                    </div>
-                    <h3>Beleza</h3>
-                    <p>23,789 produtos</p>
-                </div>
-                <div class="category-card" data-category="sports">
-                    <div class="category-icon">
-                        <i class="fas fa-football-ball"></i>
-                    </div>
-                    <h3>Desporto</h3>
-                    <p>18,567 produtos</p>
-                </div>
-                <div class="category-card" data-category="services">
-                    <div class="category-icon">
-                        <i class="fas fa-concierge-bell"></i>
-                    </div>
-                    <h3>Serviços</h3>
-                    <p>12,345 serviços</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Produtos em Destaque -->
-    <section class="featured-products">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Produtos em Destaque</h2>
-                <div class="section-filters">
-                    <button class="filter-btn active" data-filter="all">Todos</button>
-                    <button class="filter-btn" data-filter="trending">Tendência</button>
-                    <button class="filter-btn" data-filter="new">Novos</button>
-                    <button class="filter-btn" data-filter="deals">Promoções</button>
-                </div>
-            </div>
-
-            <div class="products-grid" id="productsGrid">
-                <!-- Os produtos serão carregados dinamicamente pelo JavaScript -->
-            </div>
-
-            <div class="load-more">
-                <button class="btn-secondary" id="loadMoreBtn">Carregar Mais Produtos</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Banners Promocionais -->
-    <section class="promo-banners">
-        <div class="container">
-            <div class="promo-grid">
-                <div class="promo-card promo-large">
-                    <div class="promo-content">
-                        <span class="promo-tag">Promoção Limitada</span>
-                        <h3>Até 60% de Desconto</h3>
-                        <p>Em produtos selecionados de electrónica</p>
-                        <button class="btn-promo">Ver Ofertas</button>
-                    </div>
-                </div>
-                <div class="promo-card promo-small">
-                    <div class="promo-content">
-                        <h4>Frete Grátis</h4>
-                        <p>Compras acima de 2.000 MZN</p>
-                    </div>
-                </div>
-                <div class="promo-card promo-small">
-                    <div class="promo-content">
-                        <h4>Pagamento Seguro</h4>
-                        <p>M-Pesa, E-Mola, Visa</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Vendedores Verificados -->
-    <section class="verified-sellers">
-        <div class="container">
-            <h2 class="section-title">Vendedores Verificados</h2>
-            <div class="sellers-grid">
-                <div class="seller-card">
-                    <div class="seller-badge">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <img src="https://via.placeholder.com/100" alt="Vendedor" class="seller-logo">
-                    <h4>TechMoz Store</h4>
-                    <div class="seller-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.9 (2,345)</span>
-                    </div>
-                    <button class="btn-outline-sm">Visitar Loja</button>
-                </div>
-                <div class="seller-card">
-                    <div class="seller-badge">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <img src="https://via.placeholder.com/100" alt="Vendedor" class="seller-logo">
-                    <h4>Moda Maputo</h4>
-                    <div class="seller-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.8 (1,892)</span>
-                    </div>
-                    <button class="btn-outline-sm">Visitar Loja</button>
-                </div>
-                <div class="seller-card">
-                    <div class="seller-badge">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <img src="https://via.placeholder.com/100" alt="Vendedor" class="seller-logo">
-                    <h4>Casa & Estilo</h4>
-                    <div class="seller-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.7 (1,234)</span>
-                    </div>
-                    <button class="btn-outline-sm">Visitar Loja</button>
-                </div>
-                <div class="seller-card">
-                    <div class="seller-badge">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <img src="https://via.placeholder.com/100" alt="Vendedor" class="seller-logo">
-                    <h4>BelaVida</h4>
-                    <div class="seller-rating">
-                        <i class="fas fa-star"></i>
-                        <span>4.9 (987)</span>
-                    </div>
-                    <button class="btn-outline-sm">Visitar Loja</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>MozCommerce</h3>
-                    <p>O maior marketplace digital de Moçambique. Conectando compradores e vendedores em todo o país.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Comprar</h4>
-                    <ul>
-                        <li><a href="#">Todas Categorias</a></li>
-                        <li><a href="#">Produtos Populares</a></li>
-                        <li><a href="#">Ofertas do Dia</a></li>
-                        <li><a href="#">Vendedores Verificados</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Vender</h4>
-                    <ul>
-                        <li><a href="#" id="registoVendedor">Registar como Vendedor</a></li>
-                        <li><a href="#">Centro do Vendedor</a></li>
-                        <li><a href="#">Planos Premium</a></li>
-                        <li><a href="#">Taxas e Comissões</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Suporte</h4>
-                    <ul>
-                        <li><a href="#">Central de Ajuda</a></li>
-                        <li><a href="#">Como Comprar</a></li>
-                        <li><a href="#">Como Vender</a></li>
-                        <li><a href="#">Política de Devolução</a></li>
-                        <li><a href="#">Contactar-nos</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Pagamentos Aceites</h4>
-                    <div class="payment-methods">
-                        <img src="https://via.placeholder.com/60x40/FF6B6B/fff?text=M-Pesa" alt="M-Pesa">
-                        <img src="https://via.placeholder.com/60x40/4ECDC4/fff?text=E-Mola" alt="E-Mola">
-                        <img src="https://via.placeholder.com/60x40/95E1D3/fff?text=M-Kesh" alt="M-Kesh">
-                        <img src="https://via.placeholder.com/60x40/1A1A2E/fff?text=Visa" alt="Visa">
-                        <img src="https://via.placeholder.com/60x40/0F3460/fff?text=MC" alt="Mastercard">
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 MozCommerce. Todos os direitos reservados.</p>
-                <div class="footer-links">
-                    <a href="#">Termos de Uso</a>
-                    <a href="#">Política de Privacidade</a>
-                    <a href="#">Cookies</a>
-                </div>
-            </div>
-        </div>
+    <main>
+        <section id="section1">
+            <h2>Section 1</h2>
+            <p>Content for Section 1.</p>
+        </section>
+        <section id="section2">
+            <h2>Section 2</h2>
+            <p>Content for Section 2.</p>
+        </section>
+        <section id="section3">
+            <h2>Section 3</h2>
+            <p>Content for Section 3.</p>
+        </section>
+        <section id="section4">
+            <h2>Section 4</h2>
+            <p>Content for Section 4.</p>
+        </section>
+    </main>
+    <footer>
+        <p>© 2026 My Application</p>
     </footer>
-
-    <!-- Modal de Login -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeLoginModal">&times;</button>
-            <div class="modal-body">
-                <h2>Bem-vindo de volta</h2>
-                <p>Entre na sua conta MozCommerce</p>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label>Email ou Telefone</label>
-                        <input type="text" name="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Senha</label>
-                        <input type="password" name="password" required>
-                    </div>
-                    <div class="form-options">
-                        <label class="checkbox">
-                            <input type="checkbox" name="remember">
-                            <span>Lembrar-me</span>
-                        </label>
-                        <a href="#" class="link-primary">Esqueceu a senha?</a>
-                    </div>
-                    <button type="submit" class="btn-primary btn-block">Entrar</button>
-                </form>
-                <div class="divider">ou</div>
-                <div class="social-login">
-                    <button class="btn-social btn-facebook">
-                        <i class="fab fa-facebook"></i> Continuar com Facebook
-                    </button>
-                    <button class="btn-social btn-google">
-                        <i class="fab fa-google"></i> Continuar com Google
-                    </button>
-                </div>
-                <p class="modal-footer-text">
-                    Não tem conta? <a href="#" id="showRegisterModal" class="link-primary">Registar-se</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Registo -->
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeRegisterModal">&times;</button>
-            <div class="modal-body">
-                <h2>Criar Conta</h2>
-                <p>Junte-se à maior comunidade de comércio de Moçambique</p>
-                <form id="registerForm">
-                    <div class="form-group">
-                        <label>Nome Completo</label>
-                        <input type="text" name="fullname" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Telefone (258)</label>
-                        <input type="tel" name="phone" placeholder="84 123 4567" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Senha</label>
-                        <input type="password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirmar Senha</label>
-                        <input type="password" name="confirm_password" required>
-                    </div>
-                    <label class="checkbox">
-                        <input type="checkbox" name="terms" required>
-                        <span>Aceito os <a href="#" class="link-primary">Termos e Condições</a></span>
-                    </label>
-                    <button type="submit" class="btn-primary btn-block">Criar Conta</button>
-                </form>
-                <p class="modal-footer-text">
-                    Já tem conta? <a href="#" id="showLoginModal" class="link-primary">Entrar</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/config.js"></script>
-    <script src="js/supabase.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/products.js"></script>
-    <script src="js/payments.js"></script>
-    <script src="js/main.js"></script>
 </body>
 </html>
