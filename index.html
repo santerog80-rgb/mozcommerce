@@ -1,56 +1,497 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-MZ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Application</title>
-    <link rel="manifest" href="manifest.json">
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('service-worker.js')
-                .then(function(registration) {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                })
-                .catch(function(error) {
-                    console.log('Service Worker registration failed:', error);
-                });
-            });
-        }
-    </script>
+    <meta name="description" content="MozCommerce - O maior marketplace digital de Moçambique">
+    <title>MozCommerce - Marketplace Digital de Moçambique</title>
+    
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Application</h1>
-        <nav>
-            <ul>
-                <li><a href="#section1">Section 1</a></li>
-                <li><a href="#section2">Section 2</a></li>
-                <li><a href="#section3">Section 3</a></li>
-                <li><a href="#section4">Section 4</a></li>
-            </ul>
-        </nav>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <svg width="60" height="60" viewBox="0 0 40 40" fill="none" class="loading-logo">
+                <rect width="40" height="40" rx="8" fill="#D84315"/>
+                <path d="M12 20L20 12L28 20L20 28L12 20Z" fill="white"/>
+                <circle cx="20" cy="20" r="3" fill="#FFA726"/>
+            </svg>
+            <div class="loading-text">Carregando MozCommerce...</div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="8" fill="#D84315"/>
+                        <path d="M12 20L20 12L28 20L20 28L12 20Z" fill="white"/>
+                        <circle cx="20" cy="20" r="3" fill="#FFA726"/>
+                    </svg>
+                    <span class="logo-text">MozCommerce</span>
+                </div>
+                
+                <nav class="main-nav">
+                    <a href="#categorias">Categorias</a>
+                    <a href="#servicos">Serviços</a>
+                    <a href="#vendedores">Vendedores</a>
+                    <a href="suporte.html">Suporte</a>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="btn-search" id="openSearch">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="2"/>
+                            <path d="M14 14L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button class="btn-cart">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 4H16L15 14H5L4 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            <circle cx="7" cy="17" r="1" fill="currentColor"/>
+                            <circle cx="13" cy="17" r="1" fill="currentColor"/>
+                        </svg>
+                        <span class="cart-count">0</span>
+                    </button>
+                    
+                    <!-- Botões quando não autenticado -->
+                    <div id="authButtons">
+                        <button class="btn-secondary" id="loginBtn">Entrar</button>
+                        <button class="btn-primary" id="registerBtn">Registar</button>
+                    </div>
+                    
+                    <!-- Menu do usuário quando autenticado -->
+                    <div id="userMenu" style="display: none;">
+                        <div class="user-dropdown">
+                            <button class="user-avatar-btn" id="userAvatarBtn">
+                                <img src="" alt="Avatar" id="userAvatar" class="avatar-img">
+                                <span id="userName"></span>
+                            </button>
+                            <div class="dropdown-menu" id="dropdownMenu">
+                                <a href="#" id="dashboardLink">
+                                    <span>📊</span> Dashboard
+                                </a>
+                                <a href="#" id="ordersLink">
+                                    <span>📦</span> Meus Pedidos
+                                </a>
+                                <a href="#" id="profileLink">
+                                    <span>👤</span> Perfil
+                                </a>
+                                <a href="#" id="settingsLink">
+                                    <span>⚙️</span> Configurações
+                                </a>
+                                <hr>
+                                <a href="#" id="logoutBtn">
+                                    <span>🚪</span> Sair
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </header>
-    <main>
-        <section id="section1">
-            <h2>Section 1</h2>
-            <p>Content for Section 1.</p>
-        </section>
-        <section id="section2">
-            <h2>Section 2</h2>
-            <p>Content for Section 2.</p>
-        </section>
-        <section id="section3">
-            <h2>Section 3</h2>
-            <p>Content for Section 3.</p>
-        </section>
-        <section id="section4">
-            <h2>Section 4</h2>
-            <p>Content for Section 4.</p>
-        </section>
-    </main>
-    <footer>
-        <p>© 2026 My Application</p>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-modal-content">
+            <button class="close-search" id="closeSearch">&times;</button>
+            <div class="search-container">
+                <input type="text" placeholder="Pesquisar produtos, serviços, vendedores..." class="search-input" id="searchInput">
+                <button class="search-btn" id="searchBtn">
+                    <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
+                        <circle cx="9" cy="9" r="6" stroke="white" stroke-width="2"/>
+                        <path d="M14 14L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="search-suggestions">
+                <p class="search-label">Pesquisas populares:</p>
+                <div class="suggestion-tags">
+                    <span>Eletrónicos</span>
+                    <span>Capulanas</span>
+                    <span>Telemóveis</span>
+                    <span>Serviços de Construção</span>
+                    <span>Moda</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="hero-subtitle">Bem-vindo ao</span>
+                    O Maior Marketplace de Moçambique
+                </h1>
+                <p class="hero-description">
+                    Compre e venda produtos e serviços com segurança. Pagamentos móveis integrados com M-Pesa, E-Mola e M-Kesh.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-hero-primary">Começar a Comprar</button>
+                    <button class="btn-hero-secondary" id="becomeSellerBtn">Tornar-se Vendedor</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="statsProducts">50K+</div>
+                        <div class="stat-label">Produtos</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="statsSellers">10K+</div>
+                        <div class="stat-label">Vendedores</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="statsCustomers">100K+</div>
+                        <div class="stat-label">Clientes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods -->
+    <section class="payment-methods">
+        <div class="container">
+            <div class="payment-header">
+                <h3>Métodos de Pagamento Aceitos</h3>
+            </div>
+            <div class="payment-logos">
+                <div class="payment-logo mpesa">M-Pesa</div>
+                <div class="payment-logo emola">E-Mola</div>
+                <div class="payment-logo mkesh">M-Kesh</div>
+                <div class="payment-logo visa">VISA</div>
+                <div class="payment-logo mastercard">Mastercard</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" id="categorias">
+        <div class="container">
+            <div class="section-header">
+                <h2>Categorias Populares</h2>
+                <a href="#" class="view-all">Ver todas <span>→</span></a>
+            </div>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories loaded from Supabase -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Produtos em Destaque</h2>
+                <a href="#" class="view-all">Ver todos <span>→</span></a>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products loaded from Supabase -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section" id="servicos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Serviços Disponíveis</h2>
+                <a href="#" class="view-all">Ver todos <span>→</span></a>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Construção</h3>
+                    <p>350+ prestadores</p>
+                    <button class="btn-service">Ver Serviços</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔌</div>
+                    <h3>Electricidade</h3>
+                    <p>180+ prestadores</p>
+                    <button class="btn-service">Ver Serviços</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚿</div>
+                    <h3>Canalizador</h3>
+                    <p>210+ prestadores</p>
+                    <button class="btn-service">Ver Serviços</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Design</h3>
+                    <p>420+ prestadores</p>
+                    <button class="btn-service">Ver Serviços</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose">
+        <div class="container">
+            <h2>Por Que Escolher MozCommerce?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Pagamento Seguro</h3>
+                    <p>Sistema de escrow protege compradores e vendedores</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3>Integração WhatsApp</h3>
+                    <p>Contacte vendedores directamente via WhatsApp</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Entrega Nacional</h3>
+                    <p>Entregamos em todo Moçambique</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Pagamentos Móveis</h3>
+                    <p>M-Pesa, E-Mola, M-Kesh integrados</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="8" fill="#D84315"/>
+                            <path d="M12 20L20 12L28 20L20 28L12 20Z" fill="white"/>
+                            <circle cx="20" cy="20" r="3" fill="#FFA726"/>
+                        </svg>
+                        <span>MozCommerce</span>
+                    </div>
+                    <p>O maior marketplace digital de Moçambique</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">f</a>
+                        <a href="#" aria-label="Instagram">i</a>
+                        <a href="#" aria-label="Twitter">t</a>
+                        <a href="#" aria-label="LinkedIn">in</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Para Compradores</h4>
+                    <ul>
+                        <li><a href="#">Como Comprar</a></li>
+                        <li><a href="#">Métodos de Pagamento</a></li>
+                        <li><a href="#">Rastreamento de Pedidos</a></li>
+                        <li><a href="#">Política de Devolução</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Para Vendedores</h4>
+                    <ul>
+                        <li><a href="#" id="footerBecomeSellerLink">Tornar-se Vendedor</a></li>
+                        <li><a href="#">Centro do Vendedor</a></li>
+                        <li><a href="#">Taxas e Comissões</a></li>
+                        <li><a href="#">Guia do Vendedor</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="suporte.html">Central de Ajuda</a></li>
+                        <li><a href="mailto:suporte@mozcommerce.co.mz">Email: suporte@mozcommerce.co.mz</a></li>
+                        <li><a href="https://wa.me/258841234567">WhatsApp: +258 84 123 4567</a></li>
+                        <li><a href="tel:+25821123456">Telefone: +258 21 123 456</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 MozCommerce. Todos os direitos reservados.</p>
+                <p>Feito em Moçambique 🇲🇿 para Moçambique</p>
+            </div>
+        </div>
     </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            <h2>Entrar</h2>
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="exemplo@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Palavra-passe</label>
+                    <input type="password" name="password" placeholder="********" required>
+                </div>
+                <div class="form-footer-links">
+                    <a href="#" id="forgotPasswordLink">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <span class="btn-text">Entrar</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner"></span> Entrando...
+                    </span>
+                </button>
+                <p class="form-footer">
+                    Não tem conta? <a href="#" onclick="switchModal('loginModal', 'registerModal')">Registar-se</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+            <h2>Criar Conta</h2>
+            <div class="register-type-selector">
+                <button type="button" class="type-btn active" data-type="buyer">Comprador</button>
+                <button type="button" class="type-btn" data-type="seller">Vendedor</button>
+            </div>
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" name="name" placeholder="João Silva" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="exemplo@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Telemóvel</label>
+                    <input type="tel" name="phone" placeholder="258 84 000 0000" required>
+                </div>
+                <div class="form-group">
+                    <label>Palavra-passe</label>
+                    <input type="password" name="password" placeholder="Mínimo 8 caracteres" required>
+                    <small class="form-hint">Deve conter maiúsculas, minúsculas e números</small>
+                </div>
+                <div class="seller-fields" style="display: none;">
+                    <div class="form-group">
+                        <label>Nome da Loja</label>
+                        <input type="text" name="storeName" placeholder="Minha Loja">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Negócio</label>
+                        <select name="businessType">
+                            <option value="products">Produtos Físicos</option>
+                            <option value="services">Serviços</option>
+                            <option value="both">Ambos</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <span class="btn-text">Criar Conta</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner"></span> Criando...
+                    </span>
+                </button>
+                <p class="form-footer">
+                    Já tem conta? <a href="#" onclick="switchModal('registerModal', 'loginModal')">Entrar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('forgotPasswordModal')">&times;</button>
+            <h2>Recuperar Senha</h2>
+            <p style="text-align: center; color: var(--gray-600); margin-bottom: 1.5rem;">
+                Digite seu email e enviaremos um link para redefinir sua senha.
+            </p>
+            <form class="auth-form" id="forgotPasswordForm">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="exemplo@email.com" required>
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <span class="btn-text">Enviar Link</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner"></span> Enviando...
+                    </span>
+                </button>
+                <p class="form-footer">
+                    Lembrou a senha? <a href="#" onclick="switchModal('forgotPasswordModal', 'loginModal')">Entrar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div class="modal" id="resetPasswordModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('resetPasswordModal')">&times;</button>
+            <h2>Nova Senha</h2>
+            <form class="auth-form" id="resetPasswordForm">
+                <div class="form-group">
+                    <label>Nova Palavra-passe</label>
+                    <input type="password" name="password" placeholder="Mínimo 8 caracteres" required>
+                    <small class="form-hint">Deve conter maiúsculas, minúsculas e números</small>
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Palavra-passe</label>
+                    <input type="password" name="confirmPassword" placeholder="Digite novamente" required>
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <span class="btn-text">Redefinir Senha</span>
+                    <span class="btn-loading" style="display: none;">
+                        <span class="spinner"></span> Redefinindo...
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Email Confirmation Notice -->
+    <div class="modal" id="emailConfirmationModal">
+        <div class="modal-content">
+            <div style="text-align: center;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">📧</div>
+                <h2>Confirme seu Email</h2>
+                <p style="color: var(--gray-600); margin: 1.5rem 0;">
+                    Enviamos um email de confirmação para <strong id="confirmEmail"></strong>.
+                    <br><br>
+                    Por favor, verifique sua caixa de entrada e clique no link para ativar sua conta.
+                </p>
+                <button class="btn-secondary" id="resendConfirmationBtn">
+                    Reenviar Email
+                </button>
+                <button class="btn-primary" onclick="closeModal('emailConfirmationModal')">
+                    Entendi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="supabase-config.js"></script>
+    <script type="module" src="auth-service.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
